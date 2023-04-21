@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose'
 
-const tanksSchema = Schema({
+const tasksSchema = Schema({
     name: {
         type: 'string',
         required: true,
@@ -20,4 +20,4 @@ const tanksSchema = Schema({
     versionKey: false
 })
 
-export default model('tanks', tanksSchema)
+export default model('tanks', tasksSchema)

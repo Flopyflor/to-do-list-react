@@ -7,6 +7,7 @@ Style:
 Validaciones:
 - La fecha límite debe estar en el futuro. Validación dinámica con un span que se hace visible.
 - Si al enviar el título está vacío hay una alert.
+- Si al enviar la fecha límite está vacía hay una alert.
 - Los inputs de texto son sanitizados con la función 'sanitize'.
 - La categoría no puede estar vacía.
 
@@ -90,12 +91,17 @@ function AddTaskForm() {
       return
     }
 
+    if(form.fechaLimite == ""){
+      alert("La fecha límite debe estar definida");
+      return
+    }
+
     form.titulo = sanitize(form.titulo);
     form.descripcion = sanitize(form.descripcion);
 
     //TODO: Hacer que esto funcione - coordinar con grupo de endpoints
-    //const res = postTasks(form);
-    console.log(form);
+    //const res = postTasks(form, "");
+    //console.log(form);
   }
 
   // La Vista -----------

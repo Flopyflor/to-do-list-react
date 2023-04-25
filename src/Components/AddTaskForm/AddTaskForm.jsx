@@ -6,26 +6,28 @@ Style:
 
 Validaciones:
 - La fecha límite debe estar en el futuro. Validación dinámica con un span que se hace visible.
-- Si al enviar el título está vacío hay una alert.
-- Si al enviar la fecha límite está vacía hay una alert.
+- No se puede enviar si el título o la fecha están vacíos. El botón explica porque en un hover.
 - Los inputs de texto son sanitizados con la función 'sanitize'.
 - La categoría no puede estar vacía.
 
 TODO:
 - Enviar la información al backend.
+- Mandar tarea a View? - creé el espacio para la función pero si no sirve la sacan
 
 Para mejorar:
 - la información de las categorías se declaran como constantes al principio de este código. Considerando 
 que son las mismas que se usan al filtrar, quizá sería conveniente que se obtubieran de otro lado. Quizá como 
 prop? Coordinar.
+- Las opciones para categorías no se renderizan dinámicamente porque usan emojis. Si se cambiaran las categorías
+habría que cambiar el formulario a mano. No creo que valga la pena cambiarlo igual.
+- La Fecha aparece en formato aaaa-mm-dd por default. Es decir, un string '2023-04-25'. Si conviene se puede cambiar.
 
 */
-
-
 import React, { useState } from 'react'
 import "./AddTaskForm.module.css"
-import { postTasks } from '../../../service/controller/tasksController';
 
+
+// Consts ---------
 const CATEGORIAS = {
   rojo: "rojo",
   amarillo: "amarillo",
@@ -49,19 +51,32 @@ function sanitize(string) {
   return string.trim();
 }
 
-function AddTaskForm() {
+//este en particular lo defino como variable porque necesito referenciarlo en el handleChange
+const fechaLimite = "fechaLimite";
 
-  //este en particular lo defino como variable porque necesito referenciarlo en el handleChange
-  const fechaLimite = "fechaLimite";
+const formVacia = {
+  titulo: "",
+  descripcion: "",
+  [fechaLimite]: "",
+  categoria: ""
+};
 
-  const [form, setForm] = useState({
-    titulo: "",
-    descripcion: "",
-    [fechaLimite]: "",
-    categoria: ""
-  });
+
+// La Lógica ------------
+function AddTaskForm( {agregarNuevaTarea} ) {
+  //Esta propiedad es opcional si decidimos que este form deba pasarle a la
+  //vista la información de la nueva tarea, es como me imagino que podría ser.
+
+  const [form, setForm] = useState(formVacia);
 
   const [fechaWarning, setFechaWarning] = useState(false);
+
+  const sePuedeEnviar = (titulo, fecha) => {
+    if(titulo == "" || fecha == ""){
+      return false
+    }
+    return true;
+  }
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -86,38 +101,32 @@ function AddTaskForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(form.titulo == ""){
-      alert("El título no puede estar vacío");
-      return
-    }
-
-    if(form.fechaLimite == ""){
-      alert("La fecha límite debe estar definida");
-      return
-    }
-
     form.titulo = sanitize(form.titulo);
     form.descripcion = sanitize(form.descripcion);
 
     //TODO: Hacer que esto funcione - coordinar con grupo de endpoints
-    //const res = postTasks(form, "");
-    //console.log(form);
+    //const nuevaTarea = agregarTarea(form);
+
+    //TODO: Hacer que esto funcione - coordinar con View de Tareas
+    //agregarNuevaTarea(nuevaTarea)
+
+    setForm(formVacia);
   }
 
   // La Vista -----------
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
 
       <label htmlFor="titulo">Título: </label>
-      <input id="titulo" name='titulo' type="text" value={form.titulo} onChange={handleChange} />
+      <input name='titulo' type="text" value={form.titulo} onChange={handleChange} />
       <br />
 
       <label htmlFor="descripcion">Descripción: </label>
-      <input id="descripcion" name='descripcion' type="text" value={form.descripcion} onChange={handleChange} />
+      <input name='descripcion' type="text" value={form.descripcion} onChange={handleChange} />
       <br />
 
       <label htmlFor="categoria">Categoría: </label>
-      <select name="categoria" id="categoria" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
+      <select name="categoria" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
         <option value={CATEGORIAS.rojo}>🟥</option>
         <option value={CATEGORIAS.amarillo}>🟨</option>
         <option value={CATEGORIAS.verde}>🟩</option>
@@ -125,11 +134,16 @@ function AddTaskForm() {
       <br />
 
       <label htmlFor="fechaLimite">Fecha límite: </label>
-      <input id="fechaLimite" name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} />
+      <input name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} />
       <span className='warning' hidden={!fechaWarning}>La fecha límite debe encontrarse en el futuro.</span>
       <br />
 
-      <input type="submit" value="Agregar Tarea" />
+      <input 
+      type="submit" 
+      value="Agregar Tarea" 
+      disabled={!sePuedeEnviar(form.titulo, form.fechaLimite)}
+      title={sePuedeEnviar(form.titulo, form.fechaLimite) ? "" : "La tarea debe tener un título y una fecha límite."}
+      />
     </form>
   )
 }

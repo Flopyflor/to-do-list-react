@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 const tasksSchema = Schema({
     name: {
@@ -15,6 +15,10 @@ const tasksSchema = Schema({
         type: Date,
         default: Date.now()
     },
+    deadLimit: {
+        type: Date,
+        required: true,
+    }
 }, {
     timestamps: true,
     versionKey: false

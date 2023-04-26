@@ -11,6 +11,8 @@ export const postTasks = async (req, res) => {
 
     res.json({ msg: "se a agregado el producto correctamente" });
 
+    
+
   } catch (error) {
     console.log(error);
     res.status(500).send("hubo un error");

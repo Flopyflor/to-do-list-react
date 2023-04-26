@@ -5,5 +5,4 @@ const router = Router()
 router.post("/", postTasks)
 router.get("/", getTasks)
 
-
 module.exports = router

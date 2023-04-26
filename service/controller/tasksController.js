@@ -34,14 +34,14 @@ export const deleteTasks = async (req, res) => {
     const task = await Tasks.find({ _id });
     //si el producto existe o no
     if (!task[0]) {
-      return res.status(404).json({ msg: "no existe ese producto" });
+      return res.status(404).json({ msg: "no existe esa tarea" });
     }
     const deletedTask = await Tasks.findByIdAndDelete(_id)
     if (!deletedTask) {
-      return res.status(404).json({ msg: "no se a podido eliminar el producto" });
+      return res.status(404).json({ msg: "no se a podido eliminar la tarea" });
     }
 
-    res.json({ msg: "se a eliminado el producto correctamente" });
+    res.json({ msg: "se a eliminado la tarea correctamente" });
 
   } catch (error) {
     res.status(500).send("hubo un error");

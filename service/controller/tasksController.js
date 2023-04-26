@@ -3,13 +3,13 @@ import Tasks from "../models/Tasks"
 
 export const postTasks = async (req, res) => {
   try {
-    const product = req.body
-    const newProduct = await Tasks.create(product)
+    const task = req.body
+    const newTask = await Tasks.create(task)
 
-    if (!newProduct) return res.json({ msg: "no se a podido crear el producto" });
+    if (!newTask) return res.json({ msg: "no se a podido crear la tarea" });
 
 
-    res.json({ msg: "se a agregado el producto correctamente" });
+    res.json({ msg: "se a agregado la tarea correctamente" });
 
   } catch (error) {
     console.log(error);

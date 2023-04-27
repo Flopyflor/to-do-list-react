@@ -15,10 +15,15 @@ const tasksSchema = Schema({
         type: Date,
         default: Date.now()
     },
-    deadLimit: {
+    deadLine: {
         type: Date,
         required: true,
-    }
+    },
+    category:
+    {
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+    },
 }, {
     timestamps: true,
     versionKey: false

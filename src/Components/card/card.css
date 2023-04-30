@@ -1,0 +1,76 @@
+.card {
+    width: 390px;
+    height: 54px;
+    transition: all 0.2s;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  
+  .card-inner {
+    width: inherit;
+    height: inherit;
+    background: rgba(255,255,255,.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.555);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .card:hover {
+    transform: scale(1.04) rotate(1deg);
+  }
+  
+  .circle {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(#b0e633, #53ef7d);
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+    animation: move-up6 2s ease-in infinite alternate-reverse;
+  }
+  
+  .circle:nth-child(1) {
+    top: -25px;
+    left: -25px;
+  }
+  
+  .circle:nth-child(2) {
+    bottom: -25px;
+    right: -25px;
+    animation-name: move-down1;
+  }
+
+  .check {
+    right: 5px;
+    position: fixed;
+    top: 7px;
+  }
+
+  .delete-button {
+    position: fixed;
+    z-index: 55;
+    right: 78px;
+    top: 5px;
+    font-size: 12px;
+  }
+
+  .task {
+    position: fixed;
+    left: 7px;
+    bottom: 66px;
+  }
+  
+  @keyframes move-up6 {
+    to {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes move-down1 {
+    to {
+      transform: translateY(10px);
+    }
+  }

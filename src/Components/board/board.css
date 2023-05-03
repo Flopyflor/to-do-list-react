@@ -1,6 +1,6 @@
 .board {
-    width: 690px;
-    height: 630px;
+    width: 90vw;
+    height: 45vw;
     background: #161718e4;
     position: relative;
     display: flex;

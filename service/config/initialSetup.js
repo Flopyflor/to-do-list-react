@@ -6,9 +6,9 @@ export const createCateries = async () => {
         const count = await Category.estimatedDocumentCount()
         if (count > 0) return
         const values = await Promise.all([
-            new Category({ name: "Rojo" }).save(),
-            new Category({ name: "Verde" }).save(),
-            new Category({ name: "Amarillo" }).save()
+            new Category({ name: "Red" }).save(),
+            new Category({ name: "Green" }).save(),
+            new Category({ name: "Yellow" }).save()
 
         ])
 

@@ -1,5 +1,5 @@
 .card {
-    width: 50vw;
+    width: 80vw;
     height: 54px;
     transition: all 0.2s;
     position: relative;
@@ -22,6 +22,12 @@
     transform: scale(1.04) rotate(1deg);
   }
   
+  .date {
+    position: fixed;
+    right: 164px;
+    top: 13px;
+  }
+
   .circle {
     width: 50px;
     height: 50px;
@@ -59,8 +65,9 @@
 
   .task {
     position: fixed;
-    left: 7px;
-    bottom: 66px;
+    left: 11px;
+    bottom: -4px;
+    text-align: center;
   }
   
   @keyframes move-up6 {

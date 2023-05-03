@@ -11,7 +11,7 @@ const Card = () => {
             <div className="circle"></div>
             <div className="card-inner">
                <div className="task">
-                    <h3>Tarea con un nombre</h3>
+                    <h3>Tarea</h3>
                 </div>
                 <div className="delete-button">
                     <DeleteButton/>

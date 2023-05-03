@@ -23,43 +23,13 @@ habría que cambiar el formulario a mano. No creo que valga la pena cambiarlo ig
 - La Fecha aparece en formato aaaa-mm-dd por default. Es decir, un string '2023-04-25'. Si conviene se puede cambiar.
 
 */
-import React, { useState } from 'react'
+import React from 'react'
 import "./AddTaskForm.module.css"
+import {useAddTaskForm} from './useAddTaskForm'
 
 
 // Consts ---------
-const CATEGORIAS = {
-  rojo: "rojo",
-  amarillo: "amarillo",
-  verde: "verde"
-}
-
-function sanitize(string) {
-  //agregar sustitutos a caracteres especiales acá
-  const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      "/": '&#x2F;',
-      "`": "&grave;",
-      "\\": "&#92;"
-  };
-  const reg = /[&<>"'/`\\]/ig; //agregar caracteres que hay que reemplazar acá
-  string = string.replace(reg, (match)=>(map[match]));
-  return string.trim();
-}
-
-//este en particular lo defino como variable porque necesito referenciarlo en el handleChange
-const fechaLimite = "fechaLimite";
-
-const formVacia = {
-  titulo: "",
-  descripcion: "",
-  [fechaLimite]: "",
-  categoria: ""
-};
+import {CATEGORIAS} from '../../Categorias';
 
 
 // La Lógica ------------
@@ -67,53 +37,14 @@ function AddTaskForm( {agregarNuevaTarea} ) {
   //Esta propiedad es opcional si decidimos que este form deba pasarle a la
   //vista la información de la nueva tarea, es como me imagino que podría ser.
 
-  const [form, setForm] = useState(formVacia);
+  const {
+    handleChange, 
+    handleSubmit, 
+    sePuedeEnviar,
+    form,
+    fechaWarning
+  } = useAddTaskForm()
 
-  const [fechaWarning, setFechaWarning] = useState(false);
-
-  const sePuedeEnviar = (titulo, fecha) => {
-    if(titulo == "" || fecha == ""){
-      return false
-    }
-    return true;
-  }
-
-  const handleChange = (e) => {
-    let { name, value } = e.target;
-
-    //me aseguro que la fecha límite esté en el futuro
-    if (name == fechaLimite) {
-      if (new Date(value) < new Date()){
-        value = "";
-        setFechaWarning(true);
-      } else if (fechaWarning == true) {
-        setFechaWarning(false);
-      }
-    }
-
-    setForm({
-      ...form,
-      [name]: value
-    });
-
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    form.titulo = sanitize(form.titulo);
-    form.descripcion = sanitize(form.descripcion);
-
-    //TODO: Hacer que esto funcione - coordinar con grupo de endpoints
-    //const nuevaTarea = agregarTarea(form);
-
-    //TODO: Hacer que esto funcione - coordinar con View de Tareas
-    //agregarNuevaTarea(nuevaTarea)
-
-    setForm(formVacia);
-  }
-
-  // La Vista -----------
   return (
     <form onSubmit={handleSubmit}>
 
@@ -135,7 +66,8 @@ function AddTaskForm( {agregarNuevaTarea} ) {
 
       <label htmlFor="fechaLimite">Fecha límite: </label>
       <input name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} />
-      <span className='warning' hidden={!fechaWarning}>La fecha límite debe encontrarse en el futuro.</span>
+      {/*Acá está el warning que solo aparece a veces*/}
+      {fechaWarning && (<span className='warning'>La fecha límite debe encontrarse en el futuro.</span>)}
       <br />
 
       <input 

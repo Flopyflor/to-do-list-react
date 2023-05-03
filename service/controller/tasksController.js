@@ -10,7 +10,6 @@ export const postTasks = async (req, res) => {
       task.category = foundCategory[0]
     } else {
       const categoryNew = await CategoryModel.find({ name: "Red" })
-      console.log(categoryNew)
       task.category = categoryNew[0]._id
     }
     const newTask = await Tasks.create(task)

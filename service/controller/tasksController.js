@@ -9,7 +9,7 @@ export const postTasks = async (req, res) => {
       const foundCategory = await CategoryModel.find({ name: { $in: category } })
       task.category = foundCategory[0]
     } else {
-      const categoryNew = await CategoryModel.find({ name: "Red" })
+      const categoryNew = await CategoryModel.find({ name: "red" })
       task.category = categoryNew[0]._id
     }
     const newTask = await Tasks.create(task)

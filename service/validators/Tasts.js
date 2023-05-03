@@ -7,7 +7,7 @@ export const ValidatePostProducts = [
     
     // MM-DD-YYYY
     check("deadLine").exists().notEmpty().toDate(),
-    check("category").isIn(['Red', 'Green', 'Yellow', null]),
+    check("category").isIn(['red', 'green', 'yellow', null]),
 
     (req, res, next) => {
         validateResult(req, res, next);

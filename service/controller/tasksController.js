@@ -7,19 +7,15 @@ export const postTasks = async (req, res) => {
     let task = req.body
     if (category) {
       const foundCategory = await CategoryModel.find({ name: { $in: category } })
-      task.category = foundCategory[0].map((a) => a._id);
+      task.category = foundCategory[0]
     } else {
-      const categoryNew = await CategoryModel.find({ name: "Rojo" })
-      console.log(categoryNew)
+      const categoryNew = await CategoryModel.find({ name: "red" })
       task.category = categoryNew[0]._id
     }
-    console.log(task)
     const newTask = await Tasks.create(task)
 
     if (!newTask) return res.json({ msg: "no se a podido crear la tarea" });
-
-
-
+// 
     res.json({ msg: "se a agregado la tarea correctamente" });
 
   } catch (error) {

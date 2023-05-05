@@ -1,12 +1,8 @@
 /*
 NOTAS:
-Style: 
-- creé un module, porque creí que por ahí era conveniente. Son libres de borrarlo o editarlo.
-- Hay una alerta que aparece cuando la fecha límite elegida está en el pasado. Es un span con la clase 'warning'.
-
 Validaciones:
-- La fecha límite debe estar en el futuro. Validación dinámica con un span que se hace visible.
-- No se puede enviar si el título o la fecha están vacíos. El botón explica porque en un hover.
+- La fecha límite debe estar en el futuro. Se borra y el estilo y title cambian.
+- No se puede enviar si el título o la fecha están vacíos. El botón explica por qué en un hover.
 - Los inputs de texto son sanitizados con la función 'sanitize'.
 - La categoría no puede estar vacía.
 
@@ -14,10 +10,7 @@ TODO:
 - Enviar la información al backend.
 - Mandar tarea a View? - creé el espacio para la función pero si no sirve la sacan
 
-Para mejorar:
-- la información de las categorías se declaran como constantes al principio de este código. Considerando 
-que son las mismas que se usan al filtrar, quizá sería conveniente que se obtubieran de otro lado. Quizá como 
-prop? Coordinar.
+Para tener en cuenta:
 - Las opciones para categorías no se renderizan dinámicamente porque usan emojis. Si se cambiaran las categorías
 habría que cambiar el formulario a mano. No creo que valga la pena cambiarlo igual.
 - La Fecha aparece en formato aaaa-mm-dd por default. Es decir, un string '2023-04-25'. Si conviene se puede cambiar.
@@ -26,14 +19,15 @@ habría que cambiar el formulario a mano. No creo que valga la pena cambiarlo ig
 import React from 'react'
 import "./AddTaskForm.module.css"
 import {useAddTaskForm} from './useAddTaskForm'
+import style from "./AddTaskForm.module.css"
 
 
 // Consts ---------
-import {CATEGORIAS} from '../../Categorias';
+import {CATEGORIAS} from '../../global/Categorias';
 
 
 // La Lógica ------------
-function AddTaskForm( {agregarNuevaTarea} ) {
+function AddTaskForm( {alEnviar} ) {
   //Esta propiedad es opcional si decidimos que este form deba pasarle a la
   //vista la información de la nueva tarea, es como me imagino que podría ser.
 
@@ -43,39 +37,47 @@ function AddTaskForm( {agregarNuevaTarea} ) {
     sePuedeEnviar,
     form,
     fechaWarning
-  } = useAddTaskForm()
+  } = useAddTaskForm({ alEnviar })
 
   return (
     <form onSubmit={handleSubmit}>
 
-      <label htmlFor="titulo">Título: </label>
-      <input name='titulo' type="text" value={form.titulo} onChange={handleChange} />
-      <br />
+      <p>
+        <label htmlFor="titulo">Título: </label>
+        <input id='titulo' name='titulo' type="text" value={form.titulo} onChange={handleChange} />
+      </p>
+      
+      <p>
+        <label htmlFor="categoria">Categoría: </label>
+        <select id='categoria' name="categoria" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
+          <option value={CATEGORIAS.rojo}>🟥</option>
+          <option value={CATEGORIAS.amarillo}>🟨</option>
+          <option value={CATEGORIAS.verde}>🟩</option>
+        </select>
 
-      <label htmlFor="descripcion">Descripción: </label>
-      <input name='descripcion' type="text" value={form.descripcion} onChange={handleChange} />
-      <br />
 
-      <label htmlFor="categoria">Categoría: </label>
-      <select name="categoria" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
-        <option value={CATEGORIAS.rojo}>🟥</option>
-        <option value={CATEGORIAS.amarillo}>🟨</option>
-        <option value={CATEGORIAS.verde}>🟩</option>
-      </select>
-      <br />
+        <label htmlFor="fechaLimite">Fecha límite: </label>
+        <input id='fechaLimite' name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} 
+        className={fechaWarning ? style.warning : ""}
+        title={fechaWarning? "La fecha debe encontrarse en el futuro" : ""}
+        />
+      </p>
 
-      <label htmlFor="fechaLimite">Fecha límite: </label>
-      <input name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} />
-      {/*Acá está el warning que solo aparece a veces*/}
-      {fechaWarning && (<span className='warning'>La fecha límite debe encontrarse en el futuro.</span>)}
-      <br />
+      <p>
+        <label htmlFor="descripcion">Descripción: </label>
+      </p>
+      <textarea id='descripcion' name='descripcion' type="text" value={form.descripcion} onChange={handleChange}></textarea>
+      
 
-      <input 
-      type="submit" 
-      value="Agregar Tarea" 
-      disabled={!sePuedeEnviar(form.titulo, form.fechaLimite)}
-      title={sePuedeEnviar(form.titulo, form.fechaLimite) ? "" : "La tarea debe tener un título y una fecha límite."}
-      />
+      <p>
+        <input 
+        type="submit" 
+        value="Agregar Tarea" 
+        disabled={!sePuedeEnviar(form.titulo, form.fechaLimite)}
+        title={sePuedeEnviar(form.titulo, form.fechaLimite) ? "" : "La tarea debe tener un título y una fecha límite."}
+        />
+      </p>
+
     </form>
   )
 }

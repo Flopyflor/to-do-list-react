@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'
-import Board from "./board/board"
+import Board from './Components/board/board';
 
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
     <div>
-        <Board brand={"To do list"} />
+        <Board brand={"Lista de Tareas"}/>
     </div>
     </>
   )

@@ -30,7 +30,7 @@
   }
 
   .header {
-    z-index: 12;
+    z-index: 23; /*Flor: puse esto por sobre el de board items para facilitarme el form portal*/
     display: flex;
     justify-content: center;
     align-items: center;

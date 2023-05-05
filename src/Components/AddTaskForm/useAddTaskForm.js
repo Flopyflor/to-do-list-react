@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {sanitize} from '../../utils/utils.js';
+import {sanitize} from '../../utils/sanitize.js';
 
 //este en particular lo defino como variable porque necesito referenciarlo en el handleChange
 const fechaLimite = "fechaLimite";
@@ -11,7 +11,7 @@ const formVacia = {
   categoria: ""
 };
 
-export const useAddTaskForm = () => {
+export function useAddTaskForm( { alEnviar } ) {
     const [form, setForm] = useState(formVacia);
 
     const [fechaWarning, setFechaWarning] = useState(false);
@@ -54,6 +54,8 @@ export const useAddTaskForm = () => {
 
         //TODO: Hacer que esto funcione - coordinar con View de Tareas
         //agregarNuevaTarea(nuevaTarea)
+
+        alEnviar();
 
         setForm(formVacia);
     }

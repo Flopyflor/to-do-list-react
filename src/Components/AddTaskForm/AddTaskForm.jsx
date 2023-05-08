@@ -25,7 +25,6 @@ import style from "./AddTaskForm.module.css"
 // Consts ---------
 import {CATEGORIAS} from '../../global/Categorias';
 
-
 // La Lógica ------------
 function AddTaskForm( {alEnviar} ) {
   //Esta propiedad es opcional si decidimos que este form deba pasarle a la
@@ -82,4 +81,4 @@ function AddTaskForm( {alEnviar} ) {
   )
 }
 
-export default AddTaskForm
+export default AddTaskForm;

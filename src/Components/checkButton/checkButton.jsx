@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import './checkButton.css'
+import './checkButton.css';
 
 const CheckButton = () => {
-  return (
-    <div>
-        <label className="container">
-            <input checked="checked" type="checkbox"/>
-            <div className="checkmark"></div>
-        </label>
-    </div>
-  )
-}
+    return (
+        <div>
+            <label className="container">
+                <input checked="checked" type="checkbox"/>
+                <div className="checkmark"></div>
+            </label>
+        </div>
+    );
+};
 
-export default CheckButton
+export default CheckButton;

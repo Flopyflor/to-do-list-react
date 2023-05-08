@@ -36,4 +36,4 @@ const NewTaskButtton = () => {
   )
 }
 
-export default NewTaskButtton
+export default NewTaskButtton;

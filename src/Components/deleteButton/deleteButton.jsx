@@ -1,12 +1,12 @@
-import React from 'react'
-import './deleteButton.css'
+import React from 'react';
+import './deleteButton.css';
 
 const DeleteButton = () => {
-  return (
-    <div>
-        <a href="#" className="btn"> delete </a>
-    </div>
-  )
-}
+    return (
+        <div>
+            <a href="#" className="btn"> delete </a>
+        </div>
+    );
+};
 
-export default DeleteButton
+export default DeleteButton;

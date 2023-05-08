@@ -1,9 +1,9 @@
 import React from 'react';
-import './card.css';
-import CheckButton from '../checkButton/checkButton';
-import DeleteButton from '../deleteButton/deleteButton';
+import './TaskCard.css';
+import CheckTaskButton from '../CheckTaskButton/CheckTaskButton';
+import DeleteTaskButton from '../DeleteTaskButton/DeleteTaskButton';
 
-const Card = () => {
+const TaskCard = () => {
     return (
         <div>
             <div className="card">
@@ -14,16 +14,15 @@ const Card = () => {
                         <h3>Tarea</h3>
                     </div>
                     <div className="delete-button">
-                        <DeleteButton/>
+                        <DeleteTaskButton />
                     </div>
                     <div className="check">
-                        <CheckButton/>
+                        <CheckTaskButton />
                     </div>
-                
                 </div>
             </div>
         </div>
     );
 };
 
-export default Card;
+export default TaskCard;

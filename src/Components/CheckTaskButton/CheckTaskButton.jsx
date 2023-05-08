@@ -1,8 +1,7 @@
 import React from 'react';
+import './CheckTaskButton.css';
 
-import './checkButton.css';
-
-const CheckButton = () => {
+const CheckTaskButton = () => {
     return (
         <div>
             <label className="container">
@@ -13,4 +12,4 @@ const CheckButton = () => {
     );
 };
 
-export default CheckButton;
+export default CheckTaskButton;

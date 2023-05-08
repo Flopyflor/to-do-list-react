@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './AddTaskForm.css';
+
 /*
 NOTAS:
 Validaciones:
@@ -80,5 +84,9 @@ function AddTaskForm( {alEnviar} ) {
     </form>
   )
 }
+
+AddTaskForm.propTypes = {
+    addNewTask: PropTypes.func.isRequired
+};
 
 export default AddTaskForm;

@@ -66,7 +66,7 @@
   .board::after {
     content: '';
     position: absolute;
-    background: #38ada9;
+    background: #010f0f;
     ;
     inset: 5px;
     border-radius: 15px;

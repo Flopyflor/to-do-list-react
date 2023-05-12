@@ -88,4 +88,14 @@ button:active {
     border: 2px solid white;
     text-shadow: 0 0 black
   }
+
+  @media (max-width: 890px) {
+    button {
+      width: 5em;
+      height: 2em;
+    }
+    button .text{
+      top: -12px;
+    }
+  }
   

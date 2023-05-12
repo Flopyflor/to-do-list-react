@@ -25,6 +25,10 @@ const AddTaskForm = () => {
                         <input type="text" className="input-field" placeholder="Task" autocomplete="off"/>
                     </div>
                     <div className="field">
+                        
+                        <input type="text" className="input-field"  placeholder="Description" autocomplete="off"/>
+                    </div>
+                    <div className="field">
                         <label htmlFor="EndDate" className='label'>End Date</label>
                         <input type="date" className="input-field" placeholder="End date" id='EndDate'/>
                         

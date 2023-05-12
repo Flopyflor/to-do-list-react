@@ -75,4 +75,14 @@
     background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
     animation: rotBGimg 7s linear infinite;
   } 
+
+  @media (max-width: 890px) {
+    .header {
+      font-size: 1.5em;
+
+    }
+    .header {
+      right: 80px;
+    }
+  }
   

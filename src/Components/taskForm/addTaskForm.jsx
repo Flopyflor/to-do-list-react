@@ -3,7 +3,7 @@ import {useAddTaskForm} from './useAddTaskForm'
 import './addTaskForm.css';
 
 // Consts ---------
-import {CATEGORIAS} from '../../global/Categorias';
+import {DIFFICULTY} from '../../global/Difficulty';
 
 const AddTaskForm = () => {
 
@@ -44,10 +44,10 @@ const AddTaskForm = () => {
             <div className='group'>
                 <label htmlFor="Difficulty">Difficulty </label>
                 <div className="field">
-                    <select name={NAMES.DIFFICULTY} onChange={handleChange} defaultValue={CATEGORIAS.verde} value={difficulty} className="input-field">
-                        <option value={CATEGORIAS.rojo}>🟥</option>
-                        <option value={CATEGORIAS.amarillo}>🟨</option>
-                        <option value={CATEGORIAS.verde}>🟩</option>
+                    <select name={NAMES.DIFFICULTY} onChange={handleChange} defaultValue={DIFFICULTY.verde} value={difficulty} className="input-field">
+                        <option value={DIFFICULTY.rojo}>🟥</option>
+                        <option value={DIFFICULTY.amarillo}>🟨</option>
+                        <option value={DIFFICULTY.verde}>🟩</option>
                     </select>
                 </div>
             </div>

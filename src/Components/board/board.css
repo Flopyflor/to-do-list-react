@@ -79,10 +79,12 @@
   @media (max-width: 890px) {
     .header {
       font-size: 1.5em;
+      right: 80px;
 
     }
-    .header {
-      right: 80px;
+    .header button {
+      backdrop-filter: blur(0px);
     }
+    
   }
   

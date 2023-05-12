@@ -1,54 +1,62 @@
-import React from 'react';
+import React from 'react'
+import {useAddTaskForm} from './useAddTaskForm'
 import './addTaskForm.css';
+
+// Consts ---------
+import {CATEGORIAS} from '../../global/Categorias';
 
 const AddTaskForm = () => {
 
-    const handleChange = (e) => {
-        let { name, value } = e.target;
-    }
+    const {
+        handleChange, 
+        handleSubmit,
+        form
+    } = useAddTaskForm()
 
-    const CATEGORIAS = {
-        rojo: "rojo",
-        amarillo: "amarillo",
-        verde: "verde"
+    const {title, description, deadline, difficulty} = form;
+    const NAMES = {
+        TITLE: 'title',
+        DESCRIPTION: 'description',
+        DEADLINE: 'deadline',
+        DIFFICULTY: 'difficulty'
     }
-
 
   return (
     <div>
-        <div className="card">
-            <div className="card2">
-                <form className="task-form">
-                    <p id="heading">New Task</p>
-                    <div className="field">
-                       
-                        <input type="text" className="input-field" placeholder="Task" autocomplete="off"/>
-                    </div>
-                    <div className="field">
-                        
-                        <input type="text" className="input-field"  placeholder="Description" autocomplete="off"/>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="EndDate" className='label'>End Date</label>
-                        <input type="date" className="input-field" placeholder="End date" id='EndDate'/>
-                        
-                    </div>
-                    <div className="difficulty">
-                    <label htmlFor="Difficulty">Difficulty </label>
-                        <select name="Difficulty" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
-                            <option value={CATEGORIAS.rojo}>🟥</option>
-                            <option value={CATEGORIAS.amarillo}>🟨</option>
-                            <option value={CATEGORIAS.verde}>🟩</option>
-                        </select>
-                    </div>
-                    <div className="btn">
-                        
-                        <button className="button2">Add</button>
-                    </div>
-                    
-                </form>
+        <form className="task-form" onSubmit={handleSubmit}>
+            <p id="heading">New Task</p>
+            <div className="field">
+                
+                <input type="text" required onChange={handleChange} className="input-field" placeholder="Task" autocomplete="off" name={NAMES.TITLE} value={title}/>
             </div>
-        </div>
+            <div className="field">
+                <input type="text" onChange={handleChange} className="input-field"  placeholder="Description" autocomplete="off" name={NAMES.DESCRIPTION} value={description}/>
+            </div>
+
+            <div className='group'>
+            <label htmlFor="EndDate" className='label'>End Date</label>
+            <div className="field">
+                <input type="date" min={new Date().toISOString().slice(0, 10)}  className="input-field" placeholder="End date" 
+                id='EndDate' name={NAMES.DEADLINE} onChange={handleChange} value={deadline} required/>
+            </div>
+            </div>
+            
+            <div className='group'>
+                <label htmlFor="Difficulty">Difficulty </label>
+                <div className="field">
+                    <select name={NAMES.DIFFICULTY} onChange={handleChange} defaultValue={CATEGORIAS.verde} value={difficulty} className="input-field">
+                        <option value={CATEGORIAS.rojo}>🟥</option>
+                        <option value={CATEGORIAS.amarillo}>🟨</option>
+                        <option value={CATEGORIAS.verde}>🟩</option>
+                    </select>
+                </div>
+            </div>
+                
+            <div className="btn">
+                <button className="button2">Add</button>
+            </div>
+            
+        </form>
     </div>
   )
 }

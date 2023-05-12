@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './newTaskButton.css';
 import { Portal } from '../Portal/Portal';
-import AddTaskForm from '../AddTaskForm/AddTaskForm'
+import AddTaskForm from '../taskForm/addTaskForm'
 
 
 const NewTaskButtton = () => {
@@ -28,8 +28,8 @@ const NewTaskButtton = () => {
     </div>
 
     {showForm && (
-      <Portal getClosed={closePortal}>
-        <AddTaskForm alEnviar={closePortal}></AddTaskForm>
+      <Portal setClosed={closePortal}>
+        <AddTaskForm ></AddTaskForm>
       </Portal>
       )}
     </>

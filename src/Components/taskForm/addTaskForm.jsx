@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useAddTaskForm} from './useAddTaskForm'
 import './addTaskForm.css';
+import { PortalContext } from '../../Contexts/PortalContext';
+
 
 // Consts ---------
 import {DIFFICULTY} from '../../global/Difficulty';
 
+
+const validateMyTaskForm = (form) =>{
+    return Boolean(form.title && form.deadline);
+}
+
 const AddTaskForm = () => {
+
+    const {closePortal} = useContext(PortalContext)
 
     const {
         handleChange, 
         handleSubmit,
-        form
-    } = useAddTaskForm()
+        form,
+        readyToSend
+    } = useAddTaskForm({isValidForm: validateMyTaskForm, extraOnSubmit: closePortal})
 
-    const {title, description, deadline, difficulty} = form;
+    const {title, description, deadline, difficulty} = form;    
     const NAMES = {
         TITLE: 'title',
         DESCRIPTION: 'description',
@@ -53,7 +63,7 @@ const AddTaskForm = () => {
             </div>
                 
             <div className="btn">
-                <button className="button2">Add</button>
+                <button className="button2" disabled={!readyToSend}>Add</button>
             </div>
             
         </form>

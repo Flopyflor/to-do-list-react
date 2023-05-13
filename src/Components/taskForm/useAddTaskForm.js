@@ -1,21 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {sanitize} from '../../utils/sanitize.js';
 
-export function useAddTaskForm() {
+export function useAddTaskForm({ isValidForm, extraOnSubmit } = {}) {
+
     const [form, setForm] = useState({});
+    const [readyToSend, setReadyToSend] = useState(false);
+
 
     const handleChange = (e) => {
         let { name, value } = e.target;
 
-        setForm({
-        ...form,
-        [name]: value
-        });
+        const newForm = {
+            ...form,
+            [name]: value
+            }
+
+        setForm(newForm);
+        setReadyToSend(isValidForm(newForm))
 
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(!readyToSend) return;
 
         const dataToSend = {};
         const emptyForm = {}
@@ -28,11 +36,14 @@ export function useAddTaskForm() {
         //TODO: enviar al backend
 
         setForm(emptyForm);
+
+        if(extraOnSubmit) extraOnSubmit();
     }
 
     return {
         handleChange,
         handleSubmit,
-        form
+        form,
+        readyToSend
     }
 }

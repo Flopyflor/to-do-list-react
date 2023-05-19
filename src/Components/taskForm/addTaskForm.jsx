@@ -36,9 +36,9 @@ const AddTaskForm = () => {
                     <div className="difficulty">
                     <label htmlFor="Difficulty">Difficulty </label>
                         <select name="Difficulty" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
-                            <option value={CATEGORIAS.rojo}>🟥</option>
-                            <option value={CATEGORIAS.amarillo}>🟨</option>
-                            <option value={CATEGORIAS.verde}>🟩</option>
+                            <option value={CATEGORIAS.verde} style={{ background: 'var(--color-green)' }} className='diff'></option>
+                            <option value={CATEGORIAS.amarillo} style={{ background: 'var(--color-yellow)' }} className='diff'></option>
+                            <option value={CATEGORIAS.rojo} style={{ background: 'var(--color-red)' }} className='diff'></option>
                         </select>
                     </div>
                     <div className="btn">

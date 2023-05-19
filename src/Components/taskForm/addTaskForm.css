@@ -1,3 +1,9 @@
+:root {
+  --color-red: #F81009;
+  --color-yellow: #e7dd1b;
+  --color-green: #29D207;
+}
+
 .task-form {
     display: flex;
     flex-direction: column;
@@ -57,6 +63,10 @@
 
   .difficulty select {
     border-radius: 7px;
+  }
+
+  .diff {
+    border-radius: 9px;
   }
   
   .task-form .btn {

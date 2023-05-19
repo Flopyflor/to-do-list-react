@@ -1,0 +1,90 @@
+.board {
+    width: 90vw;
+    height: 82vw;
+    background: #161718e4;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+   
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .board-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 22;
+    top: 120px;
+  }
+
+  .board h2 {
+    z-index: 1;
+    color: white;
+    font-size: 2em;
+    position: absolute;
+    margin-top: 13px;
+    text-shadow: 0 2px black
+  }
+
+  .header {
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    top: 20px;
+    position: absolute;
+    width: 100%;
+    
+
+  }
+  
+  .board::before {
+    content: '';
+    position: relative;
+    width: 100%;
+    background-image: linear-gradient(180deg, rgb(30, 216, 163), rgb(230, 240, 88));
+    height: 130%;
+    animation: rotBGimg 7s linear infinite;
+    transition: all 0.7s linear;
+  }
+  
+  @keyframes rotBGimg {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .board::after {
+    content: '';
+    position: absolute;
+    background: #010f0f;
+    ;
+    inset: 5px;
+    border-radius: 15px;
+  }  
+   .board:hover:before {
+    background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
+    animation: rotBGimg 7s linear infinite;
+  } 
+
+  @media (max-width: 890px) {
+    .header {
+      font-size: 1.5em;
+      right: 80px;
+
+    }
+    .header button {
+      backdrop-filter: blur(0px);
+    }
+    
+  }
+  

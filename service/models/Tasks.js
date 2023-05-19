@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 const tasksSchema = Schema({
     name: {
@@ -14,6 +14,15 @@ const tasksSchema = Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+    deadLine: {
+        type: Date,
+        required: true,
+    },
+    category:
+    {
+        type: Schema.Types.ObjectId,
+        ref: "Category",
     },
 }, {
     timestamps: true,

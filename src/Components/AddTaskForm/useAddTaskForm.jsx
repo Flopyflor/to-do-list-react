@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {sanitize} from '../../utils/sanitize.js';
 
 //este en particular lo defino como variable porque necesito referenciarlo en el handleChange
-const fechaLimite = "fechaLimite";
+const fechaLimite = 'fechaLimite';
 
 const formVacia = {
-  titulo: "",
-  descripcion: "",
-  [fechaLimite]: "",
-  categoria: ""
+    titulo: '',
+    descripcion: '',
+    [fechaLimite]: '',
+    categoria: ''
 };
 
 export function useAddTaskForm( { alEnviar } ) {
@@ -17,28 +17,28 @@ export function useAddTaskForm( { alEnviar } ) {
     const [fechaWarning, setFechaWarning] = useState(false);
 
     const sePuedeEnviar = (titulo, fecha) => {
-        if(titulo == "" || fecha == ""){
-        return false
+        if(titulo == '' || fecha == ''){
+            return false;
         }
         return true;
-    }
+    };
 
     const handleChange = (e) => {
         let { name, value } = e.target;
 
         //me aseguro que la fecha límite esté en el futuro
         if (name == fechaLimite) {
-        if (new Date(value) < new Date()){
-            value = "";
-            setFechaWarning(true);
-        } else if (fechaWarning == true) {
-            setFechaWarning(false);
-        }
+            if (new Date(value) < new Date()){
+                value = '';
+                setFechaWarning(true);
+            } else if (fechaWarning == true) {
+                setFechaWarning(false);
+            }
         }
 
         setForm({
-        ...form,
-        [name]: value
+            ...form,
+            [name]: value
         });
 
     };
@@ -58,7 +58,7 @@ export function useAddTaskForm( { alEnviar } ) {
         alEnviar();
 
         setForm(formVacia);
-    }
+    };
 
     return {
         handleChange,
@@ -66,5 +66,7 @@ export function useAddTaskForm( { alEnviar } ) {
         form,
         fechaWarning,
         sePuedeEnviar
-    }
+    };
 }
+
+export default useAddTaskForm;

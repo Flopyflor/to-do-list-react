@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 
 export const PortalContext = createContext();
+const {Provider} = PortalContext;
 
 export const PortalProvider = ({ children }) => {
     const [isPortalVisible, setPortalVisible] = useState(false);
@@ -13,7 +14,7 @@ export const PortalProvider = ({ children }) => {
     }
 
   return (
-    <PortalContext.Provider
+    <Provider
     value={{
         showPortal,
         closePortal,
@@ -21,7 +22,7 @@ export const PortalProvider = ({ children }) => {
     }}
     >
         {children}
-    </PortalContext.Provider>
+    </Provider>
   );
 };
 

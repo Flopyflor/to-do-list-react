@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import './newTaskButton.css';
-import { Portal } from '../Portal/Portal';
-import AddTaskForm from '../taskForm/addTaskForm'
 import {PortalContext} from '../../Contexts/PortalContext';
 
 
@@ -18,10 +16,6 @@ const NewTaskButtton = () => {
             <span className="blob"></span>
         </button>
     </div>
-
-    <Portal>
-      <AddTaskForm ></AddTaskForm>
-    </Portal>
     </>
   )
 }

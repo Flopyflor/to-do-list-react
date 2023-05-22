@@ -30,6 +30,7 @@
 
 ```json
 {
+  "id": "uuid generado en mongodb",
   "title": "Una tarea a realizar",
   "description": "Con mucho esfuerzo",
   "category": "AMARILLO" | "VERDE" | "ROJO",

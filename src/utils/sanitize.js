@@ -5,13 +5,12 @@ export const sanitize = (string) => {
         '<': '&lt;',
         '>': '&gt;',
         '"': '&quot;',
-        "'": '&#x27;',
-        "/": '&#x2F;',
-        "`": "&grave;",
-        "\\": "&#92;"
+        '\'': '&#x27;',
+        '/': '&#x2F;',
+        '`': '&grave;',
+        '\\': '&#92;'
     };
     const reg = /[&<>"'/`\\]/ig; //agregar caracteres que hay que reemplazar acá
     string = string.replace(reg, (match)=>(map[match]));
     return string.trim();
-}
-  
+};

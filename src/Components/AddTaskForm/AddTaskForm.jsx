@@ -1,87 +1,79 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext} from 'react';
 import './AddTaskForm.css';
-import style from './AddTaskForm.css?inline';
 import useAddTaskForm from './useAddTaskForm';
-
-/*
-NOTAS:
-Validaciones:
-- La fecha límite debe estar en el futuro. Se borra y el estilo y title cambian.
-- No se puede enviar si el título o la fecha están vacíos. El botón explica por qué en un hover.
-- Los inputs de texto son sanitizados con la función 'sanitize'.
-- La categoría no puede estar vacía.
-
-TODO:
-- Enviar la información al backend.
-- Mandar tarea a View? - creé el espacio para la función pero si no sirve la sacan
-
-Para tener en cuenta:
-- Las opciones para categorías no se renderizan dinámicamente porque usan emojis. Si se cambiaran las categorías
-habría que cambiar el formulario a mano. No creo que valga la pena cambiarlo igual.
-- La Fecha aparece en formato aaaa-mm-dd por default. Es decir, un string '2023-04-25'. Si conviene se import {useAddTaskForm} from './useAddTaskForm';
-*/
+import { PortalContext } from '../../Contexts/PortalContext';
 
 // Consts ---------
-import {CATEGORIAS} from '../../constants/Categorias';
+import {DIFFICULTY} from '../../constants/Categorias';
 
-// La Lógica ------------
-function AddTaskForm( {alEnviar} ) {
-    //Esta propiedad es opcional si decidimos que este form deba pasarle a la
-    //vista la información de la nueva tarea, es como me imagino que podría ser.
+const validateMyTaskForm = (form) =>{
+    return Boolean(form.title && form.deadline);
+};
+
+const AddTaskForm = () => {
+
+    //TODO: que pase en las props una función para agregar la tarea a la vista
+
+    const {closePortal} = useContext(PortalContext);
 
     const {
         handleChange, 
-        handleSubmit, 
-        sePuedeEnviar,
+        handleSubmit: handleSubmitBackend,
         form,
-        fechaWarning
-    } = useAddTaskForm({ alEnviar });
+        readyToSend
+    } = useAddTaskForm({isValidForm: validateMyTaskForm, extraOnSubmit: closePortal});
+
+    const {title, description, deadline, difficulty} = form;    
+    const NAMES = {
+        TITLE: 'title',
+        DESCRIPTION: 'description',
+        DEADLINE: 'deadline',
+        DIFFICULTY: 'difficulty'
+    };
+
+    const handleSubmit = (e) => {
+        handleSubmitBackend(e);
+        //TODO: usar la función que agrega la tarea a la vista
+    };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div>
+            <form className="task-form" onSubmit={handleSubmit}>
+                <p id="heading">New Task</p>
+                <div className="field">
+                    
+                    <input type="text" required onChange={handleChange} className="input-field" placeholder="Task" autoComplete="off" name={NAMES.TITLE} value={title}/>
+                </div>
+                <div className="field">
+                    <input type="text" onChange={handleChange} className="input-field"  placeholder="Description" autoComplete="off" name={NAMES.DESCRIPTION} value={description}/>
+                </div>
 
-            <p>
-                <label htmlFor="titulo">Título: </label>
-                <input id='titulo' name='titulo' type="text" value={form.titulo} onChange={handleChange} />
-            </p>
-      
-            <p>
-                <label htmlFor="categoria">Categoría: </label>
-                <select id='categoria' name="categoria" onChange={handleChange} defaultValue={CATEGORIAS.verde}>
-                    <option value={CATEGORIAS.rojo}>🟥</option>
-                    <option value={CATEGORIAS.amarillo}>🟨</option>
-                    <option value={CATEGORIAS.verde}>🟩</option>
-                </select>
-
-                <label htmlFor="fechaLimite">Fecha límite: </label>
-                <input id='fechaLimite' name='fechaLimite' type="date" value={form.fechaLimite} onChange={handleChange} 
-                    className={fechaWarning ? style.warning : ''}
-                    title={fechaWarning? 'La fecha debe encontrarse en el futuro' : ''}
-                />
-            </p>
-
-            <p>
-                <label htmlFor="descripcion">Descripción: </label>
-            </p>
-            <textarea id='descripcion' name='descripcion' type="text" value={form.descripcion} onChange={handleChange}></textarea>
-
-            <p>
-                <input 
-                    type="submit" 
-                    value="Agregar Tarea" 
-                    disabled={!sePuedeEnviar(form.titulo, form.fechaLimite)}
-                    title={sePuedeEnviar(form.titulo, form.fechaLimite) ? '' : 'La tarea debe tener un título y una fecha límite.'}
-                />
-            </p>
-
-        </form>
+                <div className='group'>
+                    <label htmlFor="EndDate" className='label'>End Date</label>
+                    <div className="field">
+                        <input type="date" min={new Date().toISOString().slice(0, 10)}  className="input-field" placeholder="End date" 
+                            id='EndDate' name={NAMES.DEADLINE} onChange={handleChange} value={deadline} required/>
+                    </div>
+                </div>
+                
+                <div className='group'>
+                    <label htmlFor="Difficulty">Difficulty </label>
+                    <div className="field">
+                        <select name={NAMES.DIFFICULTY} onChange={handleChange} defaultValue={DIFFICULTY.verde} value={difficulty} className="input-field">
+                            <option value={DIFFICULTY.rojo}>🟥</option>
+                            <option value={DIFFICULTY.amarillo}>🟨</option>
+                            <option value={DIFFICULTY.verde}>🟩</option>
+                        </select>
+                    </div>
+                </div>
+                    
+                <div className="btn">
+                    <button className="button2" disabled={!readyToSend}>Add</button>
+                </div>
+                
+            </form>
+        </div>
     );
-}
-
-AddTaskForm.propTypes = {
-    alEnviar: PropTypes.func.isRequired
 };
 
 export default AddTaskForm;
-

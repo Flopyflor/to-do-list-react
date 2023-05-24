@@ -9,8 +9,8 @@
 ## Crear una tarea
 
 - Muestra un modal que permite ingresar título de la tarea, categoría (en forma de color), una fecha límite y una descripción.
-- Los datos obligatorios para crear una tarea son: título y categoría. Categorías son color AMARILLO, ROJO y VERDE.
-- Los datos opcionales son la descripción de la tarea y la fecha de finalización. La fecha de finalización es un objeto Date convertido a string que se obtiene como `fecha.toISOString()`.
+- Los datos obligatorios para crear una tarea son: título, categoría y fecha límite. Categorías son color AMARILLO, ROJO y VERDE. La fecha límite es un objeto Date convertido a string que se obtiene como `fecha.toISOString()`.
+- Los datos opcionales son la descripción de la tarea.
 - Al hacer click en el botón "Agregar tarea" se cierra el modal y se agrega la nueva tarea a la lista (vista principal).
 
 ## Completar una tarea

@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TaskBoard.css';
 
+import { PortalProvider } from '../../Contexts/PortalContext';
+import Portal from '../Portal/Portal';
+import AddTaskForm from '../AddTaskForm/AddTaskForm';
+
 import TaskCard from '../TaskCard/TaskCard';
-import NewTaskButton from '../NewTaskButton/NewTaskButton';
+import NewTaskButton from '../NewTaskButton/NewTaskButtton';
 
 // TODO: aquí generar método addNewTask y pasarlo al componente NewTaskButton
 // mediante props para poder actualizar la lista de este componente
@@ -15,7 +19,13 @@ const TaskBoard = ( { tasks, changeTaskStatus, deleteTask } ) => {
             <div className="header">
                 <h2>Lista de Tareas</h2>
                 <div>
-                    <NewTaskButton />
+                    <PortalProvider>
+                        <NewTaskButton/>
+                        
+                        <Portal>
+                            <AddTaskForm ></AddTaskForm>
+                        </Portal>
+                    </PortalProvider>
                 </div>
             </div>
       

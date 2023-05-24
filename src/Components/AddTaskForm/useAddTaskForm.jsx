@@ -1,72 +1,53 @@
 import { useState } from 'react';
 import {sanitize} from '../../utils/sanitize.js';
 
-//este en particular lo defino como variable porque necesito referenciarlo en el handleChange
-const fechaLimite = 'fechaLimite';
+function useAddTaskForm({ isValidForm, extraOnSubmit } = {}) {
 
-const formVacia = {
-    titulo: '',
-    descripcion: '',
-    [fechaLimite]: '',
-    categoria: ''
-};
-
-export function useAddTaskForm( { alEnviar } ) {
-    const [form, setForm] = useState(formVacia);
-
-    const [fechaWarning, setFechaWarning] = useState(false);
-
-    const sePuedeEnviar = (titulo, fecha) => {
-        if(titulo == '' || fecha == ''){
-            return false;
-        }
-        return true;
-    };
+    const [form, setForm] = useState({});
+    const [readyToSend, setReadyToSend] = useState(false);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
 
-        //me aseguro que la fecha límite esté en el futuro
-        if (name == fechaLimite) {
-            if (new Date(value) < new Date()){
-                value = '';
-                setFechaWarning(true);
-            } else if (fechaWarning == true) {
-                setFechaWarning(false);
-            }
-        }
-
-        setForm({
+        const newForm = {
             ...form,
             [name]: value
-        });
+        };
+
+        setForm(newForm);
+        setReadyToSend(isValidForm(newForm));
 
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        form.titulo = sanitize(form.titulo);
-        form.descripcion = sanitize(form.descripcion);
+        if(!readyToSend) {
+            return;
+        }
 
-        //TODO: Hacer que esto funcione - coordinar con grupo de endpoints
-        //const nuevaTarea = agregarTarea(form);
+        const dataToSend = {};
+        const emptyForm = {};
 
-        //TODO: Hacer que esto funcione - coordinar con View de Tareas
-        //agregarNuevaTarea(nuevaTarea)
+        for (const prop in form) {
+            dataToSend[prop] = sanitize(form[prop]);
+            emptyForm[prop] = '';
+        }
 
-        alEnviar();
+        //TODO: enviar al backend
 
-        setForm(formVacia);
+        setForm(emptyForm);
+
+        if(extraOnSubmit) { 
+            extraOnSubmit(); 
+        }
     };
 
     return {
         handleChange,
         handleSubmit,
         form,
-        fechaWarning,
-        sePuedeEnviar
+        readyToSend
     };
 }
-
 export default useAddTaskForm;

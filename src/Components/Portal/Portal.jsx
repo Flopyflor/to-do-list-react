@@ -1,5 +1,6 @@
-import React, {useContext} from 'react'
-import styles from './portal.module.css'
+import React from 'react';
+import styles from './portal.module.css';
+import PropTypes from 'prop-types';
 import {PortalContext} from '../../Contexts/PortalContext'
 
 //Portal que muestra, en este caso, el formulario para agregar una nueva tarea.
@@ -19,4 +20,11 @@ export const Portal = ({children}) => {
         )}
         </>
     )
-}
+};
+
+Portal.propTypes = {
+    getClosed: PropTypes.func.isRequired,
+    children: PropTypes.array.isRequired
+};
+
+export default Portal;

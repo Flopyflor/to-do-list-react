@@ -3,8 +3,11 @@ import './TaskCard.css';
 import CheckTaskButton from '../CheckTaskButton/CheckTaskButton';
 import DeleteTaskButton from '../DeleteTaskButton/DeleteTaskButton';
 import PropTypes from 'prop-types';
+import useTasks from '../../hooks/useTasks';
 
-const TaskCard = ( { task, changeTaskStatus, deleteTask } ) => {
+const TaskCard = ( { task } ) => {
+    const { deleteTask, changeTaskStatus } = useTasks();
+
     return (
         <div>
             <div className="card">
@@ -33,8 +36,6 @@ const TaskCard = ( { task, changeTaskStatus, deleteTask } ) => {
 };
 
 TaskCard.propTypes = {
-    changeTaskStatus: PropTypes.func.isRequired,
-    deleteTask: PropTypes.func.isRequired,
     task: PropTypes.object.isRequired
 };
 

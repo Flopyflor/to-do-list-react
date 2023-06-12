@@ -1,5 +1,5 @@
 export const DIFFICULTY = {
-    rojo: 'rojo',
-    amarillo: 'amarillo',
-    verde: 'verde'
+    red: 'red',
+    yellow: 'yellow',
+    green: 'green'
 };
